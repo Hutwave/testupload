@@ -25,16 +25,42 @@ class App extends Component {
 	}
 
 //	When upload button is pressed in NavigationBar.js this function is called
-	onUpload(){
+	onUpload(file){
     console.log("Upload images logic goes here");
-     
-    cloudinary.uploader.upload("https://cloudinary-res.cloudinary.com/image/asset/dpr_2.0/logo-e0df892053afd966cc0bfe047ba93ca4.png", function(result) { 
-      console.log(result) 
-    });
-   
-
-
+      
+      	
+	onLogin(userinfo){
+		
+		let uploadfetch={
+		method: "POST",
+		headers:{"Content-Type":"application/json"},
+		mode:"cors",
+		body:JSON.stringify({"username":userinfo.username,
+							 "password":userinfo.password,
+							 "email":"Dummy@mail.com"}) // TODO "email":userinfo.email, <- edit LoginForm
+		}
+		
+		fetch("/upload",uploadfetch).then((response)=>{
+			if(response.ok){
+				response.json().then((data)=>{
+					console.log("Logged in: " +userinfo.username);
+					this.setState({
+						isLogged:true,
+						userName:userinfo.username,
+						chosenPage:"Main"
+					})
+				});
+			}else{
+				console.log("Login: Something went wrong.");
+			}
+		});
 	}
+	
+    
+    }
+
+
+	
 
 // Calling more functions from navbar: register, in and out
 

@@ -12,9 +12,9 @@ class Main extends React.Component {
 
 	}
 		
-	onUpload(){
+	onUpload(file){
 		console.log("Upload button pressed, calling parents onUpload()");
-		this.props.onUpload(); // this prop function is the parent component's (App.js) function onUpload()
+		this.props.onUpload(file); // this prop function is the parent component's (App.js) function onUpload()
 	}
 	
 	render() {
